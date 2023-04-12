@@ -12,7 +12,7 @@ export function getInitialState() {
         isBlack,
         isAttackable: false,
         row: i,
-        col: j
+        col: j,
       };
       isBlack = !isBlack;
     }
@@ -20,3 +20,27 @@ export function getInitialState() {
   }
   return board;
 }
+
+export const getUpdatedBoard = (i, j, board) => {
+  let c = j - 1;
+  for (let r = i - 1; r >= 0 && c >= 0; r--, c--) {
+    board[r][c].isAttackable = true;
+  }
+
+  c = j + 1;
+  for (let r = i - 1; r >= 0 && c < 8; r--, c++) {
+    board[r][c].isAttackable = true;
+  }
+
+  c = j - 1;
+  for (let r = i + 1; r < 8 && c >= 0; r++, c--) {
+    board[r][c].isAttackable = true;
+  }
+
+  c = j + 1;
+  for (let r = i + 1; r < 8 && c < 8; r++, c++) {
+    board[r][c].isAttackable = true;
+  }
+
+  return [...board];
+};
